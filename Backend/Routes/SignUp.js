@@ -10,12 +10,18 @@ const UpdateValidation = require("../Validation/Update");
 const router = express.Router();
 
 // sign up
-router.post("/signup", function (req, res) {
+router.post("/signup", async function (req, res) {
   try {
     let { name, email, age, nationality, password } = req.body;
     let Validation = UserValidation.safeParse(req.body);
     if (Validation.success === false) {
       return res.send("Enter Wrong Input");
+    }
+    let UserFind = await User.findOne({ email });
+    if (UserFind) {
+      return res.status(500).json({
+        message: "User already Exist",
+      });
     }
     bcrypt.genSalt(12, function (err, salt) {
       bcrypt.hash(password, salt, async function (err, hash) {
@@ -59,10 +65,10 @@ router.post("/signin", async function (req, res) {
       return res.send("User not exist");
     }
     let hash = SigninUser.password;
-    let user_id = SigninUser._id;
+    let User_id = SigninUser._id;
     bcrypt.compare(password, hash, function (err, result) {
       if (result === true) {
-        let token = jwt.sign({ user_id }, jwt_Secrat);
+        let token = jwt.sign({ User_id }, jwt_Secrat);
         res.json({
           token,
         });

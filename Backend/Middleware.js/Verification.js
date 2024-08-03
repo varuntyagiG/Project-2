@@ -10,10 +10,10 @@ function Verification(req, res, next) {
   }
   let token = data.split(" ")[1];
   let verify = jwt.verify(token, jwt_Secrat);
-  if (!verify.user_id) {
+  if (!verify.User_id) {
     return res.send("User not verified");
   } else {
-    req.id = verify.user_id;
+    req.id = verify.User_id;
     next();
   }
 }
