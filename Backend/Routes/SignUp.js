@@ -37,6 +37,7 @@ router.post("/signup", function (req, res) {
     });
   });
 });
+
 // sign in
 router.post("/signin", async function (req, res) {
   let { email, password } = req.body;
@@ -62,7 +63,7 @@ router.post("/signin", async function (req, res) {
   });
 });
 
-// edit profile
+// update route
 router.put("/update", Verification, (req, res) => {
   let { name, email, password } = req.body;
   let Validation = UpdateValidation.safeParse(req.body);
