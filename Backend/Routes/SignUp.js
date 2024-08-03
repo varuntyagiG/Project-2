@@ -83,4 +83,12 @@ router.put("/update", Verification, (req, res) => {
 });
 
 // delete route
+router.delete("/delete", Verification, async (req, res) => {
+  let deleteAccount = await User.findByIdAndDelete({ _id: req.id });
+  res.json({
+    deleteAccount,
+    message: "Account successfully deleted",
+  });
+});
+
 module.exports = router;
