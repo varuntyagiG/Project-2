@@ -1,5 +1,5 @@
 const express = require("express");
-const mainRouter = require("./Routes/SignUp");
+const mainRouter = require("./Routes/basicRoute");
 const app = express();
 
 app.use(express.json());
